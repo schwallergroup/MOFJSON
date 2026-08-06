@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MOFJSON v0.1 draft",
+  "description": "An LLM-oriented hierarchical graph for reticular designs, with an optional atomic realization.",
+  "type": "object",
+  "required": ["schema_version", "building_blocks", "net"],
+  "properties": {
+    "schema_version": {"const": "0.1"},
+    "name": {"type": "string"},
+    "identifiers": {"type": "object", "additionalProperties": {"type": "string"}},
+    "building_blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/buildingBlock"}
+    },
+    "net": {"$ref": "#/$defs/net"},
+    "realization": {"$ref": "#/$defs/realization"},
+    "provenance": {"type": "object"}
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "atom": {
+      "type": "object",
+      "required": ["id", "element"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "element": {"type": "string", "pattern": "^[A-Z][a-z]?$"},
+        "formal_charge": {"type": "integer"}
+      },
+      "additionalProperties": false
+    },
+    "bond": {
+      "type": "object",
+      "required": ["atoms", "order"],
+      "properties": {
+        "atoms": {
+          "type": "array",
+          "prefixItems": [{"type": "string"}, {"type": "string"}],
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "order": {"enum": [0, 1, 1.5, 2, 3, "coordination"]}
+      },
+      "additionalProperties": false
+    },
+    "connectionSite": {
+      "type": "object",
+      "required": ["id", "anchor_atoms"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "anchor_atoms": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+        "vector": {"$ref": "#/$defs/vector3"}
+      },
+      "additionalProperties": false
+    },
+    "buildingBlock": {
+      "type": "object",
+      "required": ["id", "role", "atom_graph", "connection_sites"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "role": {"enum": ["node", "linker"]},
+        "atom_graph": {
+          "type": "object",
+          "required": ["atoms", "bonds"],
+          "properties": {
+            "atoms": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/atom"}},
+            "bonds": {"type": "array", "items": {"$ref": "#/$defs/bond"}}
+          },
+          "additionalProperties": false
+        },
+        "connection_sites": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/connectionSite"}
+        }
+      },
+      "additionalProperties": false
+    },
+    "endpoint": {
+      "type": "object",
+      "required": ["vertex", "connection_site", "image"],
+      "properties": {
+        "vertex": {"type": "string"},
+        "connection_site": {"type": "string"},
+        "image": {
+          "type": "array",
+          "prefixItems": [{"type": "integer"}, {"type": "integer"}, {"type": "integer"}],
+          "minItems": 3,
+          "maxItems": 3
+        }
+      },
+      "additionalProperties": false
+    },
+    "net": {
+      "type": "object",
+      "required": ["dimension", "vertices", "edges"],
+      "properties": {
+        "name": {"type": "string"},
+        "dimension": {"enum": [1, 2, 3]},
+        "catenation": {"type": "integer", "minimum": 0},
+        "vertices": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "building_block"],
+            "properties": {
+              "id": {"type": "string"},
+              "building_block": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "edges": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "source", "target"],
+            "properties": {
+              "id": {"type": "string"},
+              "source": {"$ref": "#/$defs/endpoint"},
+              "target": {"$ref": "#/$defs/endpoint"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "vector3": {
+      "type": "array",
+      "prefixItems": [{"type": "number"}, {"type": "number"}, {"type": "number"}],
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "realization": {
+      "type": "object",
+      "required": ["lattice_vectors", "atom_sites"],
+      "properties": {
+        "lattice_vectors": {
+          "type": "array",
+          "prefixItems": [
+            {"$ref": "#/$defs/vector3"},
+            {"$ref": "#/$defs/vector3"},
+            {"$ref": "#/$defs/vector3"}
+          ],
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "atom_sites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "element", "fractional"],
+            "properties": {
+              "id": {"type": "string"},
+              "element": {"type": "string"},
+              "fractional": {"$ref": "#/$defs/vector3"},
+              "occupancy": {"type": "number", "minimum": 0, "maximum": 1}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,81 @@
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Secrets and local environment configuration
+.env
+.env.*
+!.env.example
+
+# Python and uv environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.so
+.python_history
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.pyright/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Python build artifacts
+build/
+dist/
+*.egg-info/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Scratch files
+tmp/
+temp/
+*.tmp
+
+# Downloaded and generated datasets
+data/raw/
+data/processed/
+
+# Raw model/API outputs and experiment caches
+results/raw/
+results/cache/
+experiments/runs/
+
+# Training artifacts and local model caches
+checkpoints/
+models/
+wandb/
+mlruns/
+lightning_logs/
+events.out.tfevents.*
+*.ckpt
+*.pt
+*.pth
+*.safetensors
+
+# Cluster job logs
+slurm-*.out
+slurm-*.err
+
+# LaTeX intermediate files (retain source and final PDFs)
+paper/*.aux
+paper/*.bbl
+paper/*.bcf
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.run.xml
+paper/*.synctex.gz

@@ -1,0 +1,11 @@
+{
+  "representation": "MOFid-in-JSON",
+  "version": "1",
+  "components": [
+    "[O-]C(=O)c1ccc(cc1)C(=O)[O-]",
+    "[Zn][O]([Zn])([Zn])[Zn]"
+  ],
+  "topology": "pcu",
+  "catenation": 0,
+  "comment": "MOF-5"
+}

@@ -1,0 +1,48 @@
+[study]
+schema_version = "0.1"
+primary_endpoint = "all_constraints_satisfied"
+primary_comparison = ["mofjson_core", "mofid"]
+seed = 20260806
+
+[data]
+target_records = 10000
+preferred_records = 50000
+minimum_verified_test_records = 500
+fallback_train_records = 1000
+fallback_test_records = 200
+split_strategy = "building_block_combination"
+exclude_disorder = true
+exclude_partial_occupancy = true
+primary_catenation = 0
+
+[representations]
+conditions = ["mofid", "mofid_json", "mofjson_chem", "mofjson_core"]
+
+[tasks]
+shared_information = ["counts", "topology", "catenation", "constrained_generation"]
+core_capability = ["degree", "adjacency", "periodic_shortest_path", "assembly"]
+
+[inference]
+minimum_api_models = 3
+minimum_provider_families = 2
+reasoning_temperature = 0.0
+generation_temperature = 0.8
+generation_top_p = 0.95
+retries = 0
+cache_raw_responses = true
+
+[training]
+objectives = ["next_token", "constraint_to_representation"]
+budget_regimes = ["equal_records", "equal_tokens"]
+data_fractions = [0.01, 0.10, 1.0]
+minimum_samples_per_condition = 1000
+preferred_samples_per_condition = 10000
+same_base_model = true
+same_tokenizer = true
+same_trainable_parameter_count = true
+
+[statistics]
+confidence_level = 0.95
+bootstrap_resamples = 10000
+paired_binary_test = "mcnemar"
+multiple_testing_correction = "holm"

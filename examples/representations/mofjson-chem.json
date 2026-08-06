@@ -1,0 +1,65 @@
+{
+  "representation": "MOFJSON-Chem",
+  "version": "0.1-benchmark-ablation",
+  "name": "illustrative Zn4O-BDC pcu design",
+  "building_blocks": [
+    {
+      "id": "zn4o_node",
+      "role": "node",
+      "atom_graph": {
+        "atoms": [
+          {"id": "Zn1", "element": "Zn"},
+          {"id": "Zn2", "element": "Zn"},
+          {"id": "Zn3", "element": "Zn"},
+          {"id": "Zn4", "element": "Zn"},
+          {"id": "O1", "element": "O"}
+        ],
+        "bonds": [
+          {"atoms": ["O1", "Zn1"], "order": "coordination"},
+          {"atoms": ["O1", "Zn2"], "order": "coordination"},
+          {"atoms": ["O1", "Zn3"], "order": "coordination"},
+          {"atoms": ["O1", "Zn4"], "order": "coordination"}
+        ]
+      }
+    },
+    {
+      "id": "bdc_linker",
+      "role": "linker",
+      "atom_graph": {
+        "atoms": [
+          {"id": "C1", "element": "C"},
+          {"id": "C2", "element": "C"},
+          {"id": "C3", "element": "C"},
+          {"id": "C4", "element": "C"},
+          {"id": "C5", "element": "C"},
+          {"id": "C6", "element": "C"},
+          {"id": "C7", "element": "C"},
+          {"id": "C8", "element": "C"},
+          {"id": "O1", "element": "O", "formal_charge": -1},
+          {"id": "O2", "element": "O"},
+          {"id": "O3", "element": "O", "formal_charge": -1},
+          {"id": "O4", "element": "O"}
+        ],
+        "bonds": [
+          {"atoms": ["C1", "C2"], "order": 1.5},
+          {"atoms": ["C2", "C3"], "order": 1.5},
+          {"atoms": ["C3", "C4"], "order": 1.5},
+          {"atoms": ["C4", "C5"], "order": 1.5},
+          {"atoms": ["C5", "C6"], "order": 1.5},
+          {"atoms": ["C6", "C1"], "order": 1.5},
+          {"atoms": ["C1", "C7"], "order": 1},
+          {"atoms": ["C7", "O1"], "order": 1},
+          {"atoms": ["C7", "O2"], "order": 2},
+          {"atoms": ["C4", "C8"], "order": 1},
+          {"atoms": ["C8", "O3"], "order": 1},
+          {"atoms": ["C8", "O4"], "order": 2}
+        ]
+      }
+    }
+  ],
+  "topology": {
+    "name": "pcu",
+    "dimension": 3,
+    "catenation": 0
+  }
+}
