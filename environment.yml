@@ -1,0 +1,32 @@
+name: mofjson
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.10
+  - pip
+  - rdkit
+  - pymatgen
+  - ase
+  - spglib
+  - networkx
+  - pandas
+  - matplotlib
+  - numpy
+  - jupyter
+  - pip:
+    - pydantic>=2.7
+    - rdflib
+    - openai
+    - anthropic
+    - tiktoken
+    - python-dotenv
+    - pytest
+    - pytest-cov
+    - hypothesis
+    - ruff
+    - mypy
+    - nbformat
+    - nbclient
+    - -e ./MolJSON  # Install local MolJSON dependency if applicable
+    - -e .[all]
