@@ -1,2 +1,3 @@
 # MOFJSON
-MOF representation for LLMs
+
+MOF representation (inspiration from Nicholas' MolJSON)
